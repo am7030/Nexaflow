@@ -6,11 +6,13 @@ import {
   motion,
   useScroll,
   useTransform,
+  useSpring,
   useMotionValueEvent,
   useReducedMotion,
   type MotionValue,
 } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { AIDemoButton } from "@/components/site/ai-demo-button";
 import { ArrowRight, Phone, CalendarCheck, ChatCircleText, ArrowsClockwise, WhatsappLogo } from "@phosphor-icons/react";
 
 const VIDEO_DURATION = 10;
@@ -21,13 +23,13 @@ type Scene = {
 };
 
 const scenes: Scene[] = [
-  { range: [0, 0.2], vh: 140 },
-  { range: [0.2, 0.35], vh: 105 },
-  { range: [0.35, 0.5], vh: 105 },
-  { range: [0.5, 0.6], vh: 70 },
-  { range: [0.6, 0.75], vh: 105 },
-  { range: [0.75, 0.9], vh: 105 },
-  { range: [0.9, 1], vh: 70 },
+  { range: [0, 0.2], vh: 70 },
+  { range: [0.2, 0.35], vh: 50 },
+  { range: [0.35, 0.5], vh: 50 },
+  { range: [0.5, 0.6], vh: 35 },
+  { range: [0.6, 0.75], vh: 50 },
+  { range: [0.75, 0.9], vh: 50 },
+  { range: [0.9, 1], vh: 35 },
 ];
 
 const TOTAL_VH = scenes.reduce((sum, s) => sum + s.vh, 0);
@@ -72,12 +74,17 @@ function useSceneMotion(
   // independent range is computed in JS rather than via Motion's
   // shared-timeline native acceleration, which miscalculates opacity
   // when several scenes map the same scrollYProgress source.
-  const opacity = useTransform(scrollYProgress, (v) =>
+  const rawOpacity = useTransform(scrollYProgress, (v) =>
     piecewiseLinear(opacityInput, opacityOutput, v)
   );
-  const y = useTransform(scrollYProgress, (v) =>
+  const rawY = useTransform(scrollYProgress, (v) =>
     piecewiseLinear(opacityInput, yOutput, v)
   );
+  // Spring-smooth the crossfade/slide so scenes ease in and out instead
+  // of tracking scroll position 1:1 — purely cosmetic, so it's safe to
+  // lag a frame behind the raw scroll value (unlike the video scrub time).
+  const opacity = useSpring(rawOpacity, { stiffness: 300, damping: 30, mass: 0.4 });
+  const y = useSpring(rawY, { stiffness: 300, damping: 30, mass: 0.4 });
 
   return { opacity, y };
 }
@@ -94,12 +101,19 @@ function Scene1({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
           NexaFlow answers every call, books appointments, follows up
           automatically, and keeps your business running 24/7.
         </p>
-        <Button size="lg" className="mt-9" asChild>
-          <a href="#pricing">
-            Book Demo
-            <ArrowRight className="size-4" weight="bold" />
-          </a>
-        </Button>
+        <div className="mt-9 flex flex-wrap items-center gap-3">
+          <Button size="lg" asChild>
+            <a href="#pricing">
+              Book Demo
+              <ArrowRight className="size-4" weight="bold" />
+            </a>
+          </Button>
+          <AIDemoButton
+            size="lg"
+            variant="outline"
+            className="border-white/20 bg-transparent text-white hover:bg-white/10"
+          />
+        </div>
       </div>
     </motion.div>
   );
@@ -405,12 +419,19 @@ function StaticStory() {
               {scene.body}
             </p>
             {scene.cta && (
-              <Button size="lg" className="mt-9" asChild>
-                <a href="#pricing">
-                  Book Demo
-                  <ArrowRight className="size-4" weight="bold" />
-                </a>
-              </Button>
+              <div className="mt-9 flex flex-wrap items-center gap-3">
+                <Button size="lg" asChild>
+                  <a href="#pricing">
+                    Book Demo
+                    <ArrowRight className="size-4" weight="bold" />
+                  </a>
+                </Button>
+                <AIDemoButton
+                  size="lg"
+                  variant="outline"
+                  className="border-white/20 bg-transparent text-white hover:bg-white/10"
+                />
+              </div>
             )}
           </div>
         </div>

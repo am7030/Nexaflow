@@ -60,6 +60,50 @@ body {
   animation: accordion-up 0.2s ease-in;
 }
 
+/* Liquid-glass card approximation (no official "Liquid Glass" web API exists —
+   this layers backdrop-filter blur, a translucent border, and a top highlight
+   to fake the refraction/depth look). Falls back to a solid panel below. */
+.glass-card {
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 24px 48px -24px rgba(0, 0, 0, 0.55);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  transform: translateY(-2px);
+}
+
+.glass-card--accent {
+  border-color: rgba(14, 165, 233, 0.45);
+  background: linear-gradient(
+    160deg,
+    rgba(14, 165, 233, 0.22),
+    rgba(255, 255, 255, 0.04)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 32px 64px -24px rgba(14, 165, 233, 0.35);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-card,
+  .glass-card--accent {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: #18181b;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { AIDemoButton } from "@/components/site/ai-demo-button";
 
 export function Navbar() {
   return (
@@ -21,9 +22,16 @@ export function Navbar() {
             FAQ
           </a>
         </nav>
-        <Button size="sm" asChild>
-          <a href="#pricing">Book a demo</a>
-        </Button>
+        <div className="flex items-center gap-3">
+          <AIDemoButton
+            variant="outline"
+            size="sm"
+            className="hidden border-white/20 bg-transparent text-white hover:bg-white/10 sm:inline-flex"
+          />
+          <Button size="sm" asChild>
+            <a href="#pricing">Book a demo</a>
+          </Button>
+        </div>
       </div>
     </header>
   );
