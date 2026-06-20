@@ -8,29 +8,29 @@ import { Reveal } from "@/components/ui/reveal";
 
 const faqs = [
   {
-    question: "How long does setup take?",
+    question: "Will customers know it's AI?",
     answer:
-      "Most lines go live within days. We configure the assistant with your services, hours, and pricing before it ever takes a real call.",
+      "The voice sounds natural and conversational. We're upfront that it's an AI assistant if a customer asks directly, but most calls flow like a normal conversation with your front desk.",
   },
   {
-    question: "What happens if I go over my call minutes?",
+    question: "Can it transfer calls?",
     answer:
-      "We'll let you know as you approach your limit. You can add minutes or move up a tier at any time, no long-term commitment required.",
+      "Yes. If a call needs a human, NexaFlow can transfer it straight to you or a team member based on rules you set.",
   },
   {
-    question: "Can the AI speak to customers in different regions?",
+    question: "Does it work after hours?",
     answer:
-      "Yes. Nexaflow is built to handle customers across the US, UK, Canada, and Australia, matching tone and accent expectations for each market.",
+      "Yes, that's most of the value. NexaFlow answers every call 24/7, including evenings, weekends, and holidays.",
   },
   {
-    question: "Do I need to keep my existing phone number?",
+    question: "Can it send SMS?",
     answer:
-      "Yes, we forward your existing number to Nexaflow, so customers never notice a change on their end.",
+      "Yes. Booking confirmations, missed-call text-backs, and follow-ups are all sent automatically by text.",
   },
   {
-    question: "Can I cancel anytime?",
+    question: "Does it integrate with GHL?",
     answer:
-      "There's no long-term contract. You can cancel your monthly plan whenever you'd like.",
+      "Yes, NexaFlow connects with GoHighLevel along with most major CRMs, so your pipeline stays in sync automatically.",
   },
 ];
 

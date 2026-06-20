@@ -1,10 +1,8 @@
 import { Navbar } from "@/components/site/navbar";
-import { Hero } from "@/components/site/hero";
-import { PainPoints } from "@/components/site/pain-points";
+import { ScrollStory } from "@/components/site/scroll-story";
+import { Results } from "@/components/site/results";
 import { HowItWorks } from "@/components/site/how-it-works";
-import { Features } from "@/components/site/features";
 import { Pricing } from "@/components/site/pricing";
-import { Verticals } from "@/components/site/verticals";
 import { FAQ } from "@/components/site/faq";
 import { FinalCTA } from "@/components/site/final-cta";
 import { Footer } from "@/components/site/footer";
@@ -14,12 +12,10 @@ export default function Home() {
     <>
       <Navbar />
       <main className="flex-1">
-        <Hero />
-        <PainPoints />
+        <ScrollStory />
+        <Results />
         <HowItWorks />
-        <Features />
         <Pricing />
-        <Verticals />
         <FAQ />
         <FinalCTA />
       </main>
