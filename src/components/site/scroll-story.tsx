@@ -13,6 +13,7 @@ import {
 } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { AIDemoButton } from "@/components/site/ai-demo-button";
+import { AI_DEMO_PHONE_E164, AI_DEMO_PHONE_DISPLAY } from "@/components/site/ai-demo-widget";
 import { ArrowRight, Phone, CalendarCheck, ChatCircleText, ArrowsClockwise, WhatsappLogo } from "@phosphor-icons/react";
 
 const VIDEO_DURATION = 10;
@@ -114,6 +115,12 @@ function Scene1({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
             className="border-white/20 bg-transparent text-white hover:bg-white/10"
           />
         </div>
+        <a
+          href={`tel:${AI_DEMO_PHONE_E164}`}
+          className="mt-3 inline-block text-sm text-white/50 hover:text-white/80"
+        >
+          or call {AI_DEMO_PHONE_DISPLAY} to talk to it now
+        </a>
       </div>
     </motion.div>
   );
@@ -432,6 +439,14 @@ function StaticStory() {
                   className="border-white/20 bg-transparent text-white hover:bg-white/10"
                 />
               </div>
+            )}
+            {scene.cta && (
+              <a
+                href={`tel:${AI_DEMO_PHONE_E164}`}
+                className="mt-3 inline-block text-sm text-white/50 hover:text-white/80"
+              >
+                or call {AI_DEMO_PHONE_DISPLAY} to talk to it now
+              </a>
             )}
           </div>
         </div>
