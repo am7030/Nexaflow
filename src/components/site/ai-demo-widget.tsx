@@ -4,9 +4,6 @@ import Script from "next/script";
 
 const ELEVENLABS_AGENT_ID = "agent_3601kvb8fmfhefyr8vtj4eh859mn";
 
-export const AI_DEMO_PHONE_E164 = "+15405592171";
-export const AI_DEMO_PHONE_DISPLAY = "(540) 559-2171";
-
 export function AIDemoWidget() {
   return (
     <>
@@ -21,10 +18,32 @@ export function AIDemoWidget() {
   );
 }
 
+function findWidgetTrigger() {
+  const widget = document.querySelector("elevenlabs-convai");
+  return widget?.shadowRoot?.querySelector<HTMLElement>("button") ?? null;
+}
+
 export function openAIDemoWidget() {
   const widget = document.querySelector("elevenlabs-convai");
-  if (!widget) return;
-  widget.scrollIntoView({ behavior: "smooth", block: "end" });
-  const trigger = widget.shadowRoot?.querySelector<HTMLElement>("button");
-  trigger?.click();
+  widget?.scrollIntoView({ behavior: "smooth", block: "end" });
+
+  const trigger = findWidgetTrigger();
+  if (trigger) {
+    trigger.click();
+    return;
+  }
+
+  // First click can race the widget's async embed script — poll briefly
+  // until its shadow DOM is ready instead of silently doing nothing.
+  let attempts = 0;
+  const interval = setInterval(() => {
+    attempts += 1;
+    const retryTrigger = findWidgetTrigger();
+    if (retryTrigger) {
+      retryTrigger.click();
+      clearInterval(interval);
+    } else if (attempts >= 20) {
+      clearInterval(interval);
+    }
+  }, 250);
 }

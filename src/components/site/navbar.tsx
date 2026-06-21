@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { AIDemoButton } from "@/components/site/ai-demo-button";
+import { BookDemoButton } from "@/components/site/book-demo-button";
 
 export function Navbar() {
   return (
@@ -28,9 +28,7 @@ export function Navbar() {
             size="sm"
             className="hidden border-white/20 bg-transparent text-white hover:bg-white/10 sm:inline-flex"
           />
-          <Button size="sm" asChild>
-            <a href="#pricing">Book a demo</a>
-          </Button>
+          <BookDemoButton size="sm">Book a demo</BookDemoButton>
         </div>
       </div>
     </header>
